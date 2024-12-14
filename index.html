@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CookIt Recipe Filter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #FAFAFA;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .filter-buttons button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      color: white;
+      background-color: #FF6F61;
+      transition: background-color 0.3s ease;
+    }
+
+    .filter-buttons button:hover {
+      background-color: #E64A19;
+    }
+
+    .filter-buttons button.active {
+      background-color: #4CAF50;
+    }
+
+    .recipes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .recipe-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .recipe-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .recipe-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .recipe-card h3 {
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      font-size: 20px;
+      margin: 15px;
+      color: #333;
+    }
+
+    .recipe-card p {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      color: #666;
+      margin: 0 15px 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>CookIt Recipe Filter</h1>
+  <div class="filter-buttons">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="vegan">Vegan</button>
+    <button class="filter-btn" data-filter="gluten-free">Gluten-Free</button>
+    <button class="filter-btn" data-filter="vegetarian">Vegetarian</button>
+    <button class="filter-btn" data-filter="keto">Keto</button>
+  </div>
+
+  <div class="recipes">
+    <div class="recipe-card" data-category="vegan">
+      <img src="https://via.placeholder.com/250x150" alt="Vegan Salad">
+      <h3>Vegan Salad</h3>
+      <p>Fresh and healthy vegan salad with a tangy dressing.</p>
+    </div>
+    <div class="recipe-card" data-category="gluten-free">
+      <img src="https://via.placeholder.com/250x150" alt="Gluten-Free Pasta">
+      <h3>Gluten-Free Pasta</h3>
+      <p>Delicious pasta made without gluten for sensitive diets.</p>
+    </div>
+    <div class="recipe-card" data-category="vegetarian">
+      <img src="https://via.placeholder.com/250x150" alt="Vegetarian Pizza">
+      <h3>Vegetarian Pizza</h3>
+      <p>A cheesy delight topped with fresh vegetables.</p>
+    </div>
+    <div class="recipe-card" data-category="keto">
+      <img src="https://via.placeholder.com/250x150" alt="Keto Chicken">
+      <h3>Keto Chicken</h3>
+      <p>Juicy grilled chicken with a creamy keto sauce.</p>
+    </div>
+  </div>
+
+  <script>
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const recipeCards = document.querySelectorAll('.recipe-card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        
+        // Add active class to the clicked button
+        button.classList.add('active');
+
+        const filter = button.getAttribute('data-filter');
+
+        // Show/hide recipes based on filter
+        recipeCards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
